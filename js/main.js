@@ -84,4 +84,3 @@ function setConfig(data) {
 getData("data/contentView.json", "json")
   .then(processData)
   .then(setConfig);
-test
