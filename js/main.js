@@ -1,26 +1,24 @@
 //获取表格数据
 function getData(url, type) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
     xhr.responseText = type;
-    xhr.onload = function () {
+    xhr.onload = function() {
       if (xhr.status === 200) {
         resolve(xhr.response);
       } else {
         reject(Error("数据资源加载失败，错误码:" + xhr.responseText));
       }
     };
-    xhr.onerror = function () {
+    xhr.onerror = function() {
       reject(Error("网络错误。"));
     };
     xhr.send();
   });
 }
 
-
 //根据获取到的表格数据计算 xAxis 与 series
-
 
 function processData(response) {
   var key = {
@@ -38,6 +36,7 @@ function processData(response) {
       for (classes in singleDayData) {
         usedData[classes] = [];
       }
+      console.log(usedData);
       break;
     }
   }
@@ -46,12 +45,16 @@ function processData(response) {
       //date 日期的数据
       var singleDayData = sheetData[date];
       for (classes in singleDayData) {
+        // console.log(classes);
+        // console.log(singleDayData[classes]);
         usedData[classes].push(singleDayData[classes]);
-        if (classes = "日期") {
-          console.log(usedData[classes]);
-          usedData[classes] = usedData[classes].splice(5, 10);
+        // console.log(usedData[classes]);
+        if ((classes = "日期")) {
+          usedData[classes] = usedData[classes].slice(5, 10);
+          // console.log(usedData[classes]);
         }
       }
+      // console.log(usedData);
     }
   }
   return usedData;
@@ -66,19 +69,21 @@ function setConfig(data) {
     },
     tooltip: {},
     legend: {
-      data: ['Android']
+      data: ["Android"]
     },
     xAxis: {
-      data: data["日期"].splice(5, 10),
+      data: data["日期"].splice(5, 10)
     },
     yAxis: {},
-    series: [{
-      name: 'Android',
-      type: 'line',
-      data: data["Android"]
-    }]
+    series: [
+      {
+        name: "Android",
+        type: "line",
+        data: data["Android"]
+      }
+    ]
   };
-  chart.setOption(option)
+  chart.setOption(option);
 }
 //data url
 getData("data/contentView.json", "json")
