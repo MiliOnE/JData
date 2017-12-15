@@ -59,7 +59,7 @@ function processData(response) {
   }
   return usedData;
 }
-//test
+
 function setConfig(data) {
   var chartTable = document.getElementsByClassName("content-charts")[0];
   var chart = echarts.init(chartTable);
