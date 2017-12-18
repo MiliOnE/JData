@@ -36,27 +36,23 @@ function processData(response) {
       for (classes in singleDayData) {
         usedData[classes] = [];
       }
-      console.log(usedData);
       break;
     }
   }
+  console.log(sheetData);
   for (date in sheetData) {
     if (date !== "") {
       //date 日期的数据
       var singleDayData = sheetData[date];
       for (classes in singleDayData) {
-        // console.log(classes);
-        // console.log(singleDayData[classes]);
-        usedData[classes].push(singleDayData[classes]);
-        // console.log(usedData[classes]);
-        if ((classes = "日期")) {
-          usedData[classes] = usedData[classes].slice(5, 10);
-          // console.log(usedData[classes]);
+        if (classes == "日期") {
+          singleDayData[classes] = singleDayData[classes].slice(5, 10);
         }
+        usedData[classes].push(singleDayData[classes]);
       }
-      // console.log(usedData);
     }
   }
+  console.log(usedData);
   return usedData;
 }
 
@@ -72,7 +68,7 @@ function setConfig(data) {
       data: ["Android"]
     },
     xAxis: {
-      data: data["日期"].splice(5, 10)
+      data: data["日期"]
     },
     yAxis: {},
     series: [
